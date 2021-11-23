@@ -19,13 +19,13 @@ import java.util.UUID;
 @Slf4j
 public class OssUpLoadFileUtil {
     @Autowired
-    private OSS ossClient;
-    @Autowired
     private AliYunOssConfig aliYunOssConfig;
 
     private List<String> list=null;
+    private OSS ossClient = null;
     public boolean uploadImages(MultipartFile[] images) {
         list = new LinkedList<>();
+        ossClient = new OSSClient(aliYunOssConfig.getEndpoint(), aliYunOssConfig.getAccessKeyId(), aliYunOssConfig.getAccessKeySecret());
         // 校验图片格式
         boolean isLegal = false;
         for (MultipartFile multipartFile : images) {
